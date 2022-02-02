@@ -51,6 +51,7 @@ function App() {
           name="task"
           onChange={handleChange}
           value={inputValue}
+          placeholder="Add a todo here!"
         />
         <button className="App-Addbutton" onClick={addTask}>
           Add Task

@@ -18,7 +18,7 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
         {task.text}
       </span>
       <div>
-        <span> {task.date} </span>
+        <span className="TodoItem-date"> {task.date} </span>
         <button onClick={() => deleteTask(task.id)}> 🗑️ </button>
         <button onClick={() => statusTask(task.id)}>
           {task.done ? "✔️" : " 🚩"}

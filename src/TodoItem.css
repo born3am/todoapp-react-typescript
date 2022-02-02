@@ -29,3 +29,8 @@
 .Task-undone {
   font-style: italic;
 }
+
+.TodoItem-date {
+  font-size: 0.7rem;
+  color: rgb(124, 122, 122);
+}
