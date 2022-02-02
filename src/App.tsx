@@ -3,8 +3,6 @@ import "./App.css";
 import { v4 as uuid } from "uuid";
 import { TodoItemType } from "./interfaces";
 import TodoItem from "./TodoItem";
-import { isDate } from "util/types";
-import { timeStamp } from "console";
 
 function App() {
   const [todoList, setTodoList] = useState<TodoItemType[]>([]);
