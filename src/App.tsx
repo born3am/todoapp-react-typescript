@@ -33,7 +33,7 @@ function App() {
   };
 
   // update task
-  const updateTask = (id: string) => {
+  const statusTask = (id: string) => {
     setTodoList(
       todoList.map((task) =>
         task.id === id ? { ...task, done: !task.done } : task
@@ -64,7 +64,7 @@ function App() {
                 key={task.id}
                 task={task}
                 deleteTask={deleteTask}
-                updateTask={updateTask}
+                statusTask={statusTask}
               />
             );
           })}

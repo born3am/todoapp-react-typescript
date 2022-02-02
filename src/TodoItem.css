@@ -1,4 +1,4 @@
-.TodoItem-li {
+.TodoItem-li-done {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,4 +7,25 @@
   border-bottom: 1px solid #ccc;
   width: 100%;
   border-radius: 10px;
+  background-color: #c6ffdd;
+}
+
+.TodoItem-li-undone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #f7797d;
+}
+
+.Task-done {
+  text-decoration: line-through;
+}
+
+.Task-undone {
+  font-style: italic;
 }
