@@ -1,0 +1,10 @@
+.TodoItem-li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  border-radius: 10px;
+}

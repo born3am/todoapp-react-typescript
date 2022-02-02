@@ -1,38 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Sniglet:wght@400;800&display=swap');
 .App {
-  text-align: center;
-}
+  background-image: radial-gradient(circle farthest-side, #fceabb, #f8b500);
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  height: 100vh;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  padding: 5px;
+  height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 1.7rem;
+  font-family: "Faster One", cursive;
+  letter-spacing: 10px;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.App-Addbutton {
+  background-color: #5811db;
+  border: none;
   color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 8px 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+.App-taskInput {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 0px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-ul {
+  list-style-type: none;
+  margin: 30px auto;
+  padding: 0;
+  border-radius: 20px;
+  width: 60%;
+}
+
+.App-main {
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-footer {
+  text-align: right;
+  margin-right: 50px;
 }
