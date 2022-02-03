@@ -1,12 +1,18 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import "./App.css";
 import { v4 as uuid } from "uuid";
 import { TodoItemType } from "./interfaces";
 import TodoItem from "./TodoItem";
 
 function App() {
-  const [todoList, setTodoList] = useState<TodoItemType[]>([]);
+  const [todoList, setTodoList] = useState<TodoItemType[]>(
+    JSON.parse(localStorage.getItem("todoList") || "[]")
+  );
   const [inputValue, setInputValue] = useState<string>("");
+
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+  }, [todoList]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -51,7 +57,7 @@ function App() {
           name="task"
           onChange={handleChange}
           value={inputValue}
-          placeholder="Add a todo here!"
+          placeholder="Add a todo"
         />
         <button className="App-Addbutton" onClick={addTask}>
           Add Task

@@ -7,7 +7,8 @@
   border-bottom: 1px solid #ccc;
   width: 100%;
   border-radius: 10px;
-  background-color: #c6ffdd;
+  background-color: #8ab8fc;
+  margin: 5px auto;
 }
 
 .TodoItem-li-undone {
@@ -19,7 +20,8 @@
   border-bottom: 1px solid #ccc;
   width: 100%;
   border-radius: 10px;
-  background-color: #f7797d;
+  background-color: #fa8d91;
+  margin: 5px auto;
 }
 
 .Task-done {
