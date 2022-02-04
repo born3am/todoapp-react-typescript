@@ -10,9 +10,7 @@ type Props = {
 
 export default function TodoItem({ task, deleteTask, statusTask }: Props) {
   return (
-    <li
-      className={task.done ? "TodoItem-li-done" : "TodoItem-li-undone "}
-    >
+    <li className={task.done ? "TodoItem-li-done" : "TodoItem-li-undone "}>
       <span className={task.done ? "Task-done" : "Task-undone"}>
         {task.text}
       </span>
