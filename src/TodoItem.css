@@ -2,30 +2,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #ccc;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  padding: 2px;
   width: 100%;
   border-radius: 10px;
   background-color: #8ab8fc;
   margin: 5px auto;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+
 }
 
 .TodoItem-li-undone {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #ccc;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  padding: 2px;
   width: 100%;
   border-radius: 10px;
-  background-color: #fa8d91;
+  background-color: #f3f2ed;
   margin: 5px auto;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+
 }
 
 .Task-done {
   text-decoration: line-through;
+
 }
 
 .Task-undone {
