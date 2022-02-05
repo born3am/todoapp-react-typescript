@@ -5,9 +5,9 @@ import { TodoItemType } from "./interfaces";
 import TodoItem from "./TodoItem";
 import { Button, Container, TextField } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { warningAlert, successAlert, deleteAlert } from "./alerts";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Swal from "sweetalert2";
+import { warningAlert, successAlert } from "./alerts";
 
 function App() {
   const [todoList, setTodoList] = useState<TodoItemType[]>(
@@ -41,20 +41,80 @@ function App() {
   };
   //delete todo task
   const deleteTask = (id: string) => {
-    setTodoList(todoList.filter((task) => task.id !== id));
-    deleteAlert();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTodoList(todoList.filter((task) => task.id !== id));
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Deleted!",
+          text: "Task deleted",
+          showConfirmButton: false,
+          timer: 1000,
+          toast: true,
+        });
+      }
+    });
   };
 
   //delete all Tasks
   const deleteAllTasks = () => {
-    setTodoList([]);
-    deleteAlert();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTodoList([]);
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Deleted!",
+          text: "All Tasks deleted",
+          showConfirmButton: false,
+          timer: 1000,
+          toast: true,
+        });
+      }
+    });
   };
 
   //delete dones
   const deleteTasksdone = () => {
-    setTodoList(todoList.filter((task) => !task.done));
-    deleteAlert();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTodoList(todoList.filter((task) => !task.done));
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Deleted!",
+          text: "Task(s) done deleted",
+          showConfirmButton: false,
+          timer: 1000,
+          toast: true,
+        });
+      }
+    });
   };
 
   // update task
@@ -104,33 +164,37 @@ function App() {
                 />
               );
             })}
-
-            <div style={{ display: "flex", justifyContent: "right" }}>
-              <Button
-                sx={{ alignItem: "center" }}
-                size="small"
-                color="error"
-                endIcon={<DeleteIcon />}
-                onClick={() => deleteTasksdone()}
-              >
-                Delete Tasks Done
-              </Button>
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "right" }}>
-              <Button
-                sx={{ alignItem: "center" }}
-                size="small"
-                color="error"
-                endIcon={<DeleteIcon />}
-                onClick={() => deleteAllTasks()}
-              >
-                Delete All
-              </Button>
-            </div>
           </ul>
         </main>
         <footer className="App-footer">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "left",
+              marginTop: "100px",
+            }}
+          >
+            <Button
+              // sx={{ alignItem: "center" }}
+              size="small"
+              color="error"
+              startIcon={<DeleteForeverIcon />}
+              onClick={() => deleteTasksdone()}
+            >
+              Delete Tasks Done
+            </Button>
+          </div>
+          <div style={{ display: "flex", justifyContent: "left" }}>
+            <Button
+              // sx={{ alignItem: "center" }}
+              size="small"
+              color="error"
+              startIcon={<DeleteForeverIcon />}
+              onClick={() => deleteAllTasks()}
+            >
+              Delete All
+            </Button>
+          </div>
           <h5>Born3am - 2022</h5>
         </footer>
       </Container>
