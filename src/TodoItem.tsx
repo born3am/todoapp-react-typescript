@@ -16,14 +16,18 @@ type Props = {
 export default function TodoItem({ task, deleteTask, statusTask }: Props) {
   return (
     <li className={task.done ? "TodoItem-li-done" : "TodoItem-li-undone "}>
-      <Button onClick={() => statusTask(task.id)}>
-        {task.done ? (
-          <CheckCircleOutlineIcon />
-        ) : (
-          <RadioButtonUncheckedTwoToneIcon />
-        )}
-      </Button>
-      <p className={task.done ? "Task-done" : "Task-undone"}  >{task.text}</p>
+      <div>
+        <Button onClick={() => statusTask(task.id)}>
+          {task.done ? (
+            <CheckCircleOutlineIcon />
+          ) : (
+            <RadioButtonUncheckedTwoToneIcon />
+          )}
+        </Button>
+        <span className={task.done ? "Task-done" : "Task-undone"}>
+          {task.text}
+        </span>
+      </div>
       <div>
         <span className="TodoItem-date"> {task.date} </span>
         <Button color="error" onClick={() => deleteTask(task.id)}>

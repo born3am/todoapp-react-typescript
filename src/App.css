@@ -2,13 +2,12 @@
 .App {
 }
 .App-header {
-  padding: 5px;
   height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-family: "Faster One", cursive;
   letter-spacing: 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -43,4 +42,13 @@
 .App-footer h5 {
   text-align: center;
   line-height: 10px;
+}
+
+.App-footer a {
+  text-decoration: none;
+  color: rgb(124, 122, 122);
+}
+
+.App-footer a:hover {
+  color: #1976d2;
 }

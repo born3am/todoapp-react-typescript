@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Swal from "sweetalert2";
 import { warningAlert, successAlert } from "./alerts";
+import { padding } from "@mui/system";
 
 function App() {
   const [todoList, setTodoList] = useState<TodoItemType[]>(
@@ -67,54 +68,82 @@ function App() {
 
   //delete all Tasks
   const deleteAllTasks = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setTodoList([]);
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title: "Deleted!",
-          text: "All Tasks deleted",
-          showConfirmButton: false,
-          timer: 1000,
-          toast: true,
-        });
-      }
-    });
+    if (
+      todoList.map((task) => task.done).includes(true) ||
+      todoList.map((task) => task.done).includes(false)
+    ) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setTodoList([]);
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Deleted!",
+            text: "All Tasks deleted",
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "Oops...",
+        text: "Nothing to delete here!",
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true,
+      });
+    }
   };
 
   //delete dones
   const deleteTasksdone = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setTodoList(todoList.filter((task) => !task.done));
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title: "Deleted!",
-          text: "Task(s) done deleted",
-          showConfirmButton: false,
-          timer: 1000,
-          toast: true,
-        });
-      }
-    });
+    if (todoList.map((task) => task.done).includes(true)) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        console.log(todoList);
+        if (result.isConfirmed) {
+          setTodoList(todoList.filter((task) => !task.done));
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Deleted!",
+            text: "Task(s) done deleted",
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "top",
+        icon: "warning",
+        title: "Oops!",
+        text: "No tasks done yet!",
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true,
+      });
+    }
   };
 
   // update task
@@ -128,30 +157,30 @@ function App() {
 
   return (
     <div className="App">
-      <Container fixed>
-        <header className="App-header">
-          <h1>TODO APP</h1>
-          <div className="App-div-input">
-            <TextField
-              id="standard-basic"
-              label="Enter your task here!"
-              variant="standard"
-              type="text"
-              name="task"
-              onChange={handleChange}
-              value={inputValue}
-            />
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              startIcon={<AddCircleOutlineIcon />}
-              onClick={addTask}
-            >
-              Add Task
-            </Button>
-          </div>
-        </header>
+      <header className="App-header">
+        <h1>TO-DO APP</h1>
+        <div className="App-div-input">
+          <TextField
+            id="standard-basic"
+            label="Enter your task here!"
+            variant="standard"
+            type="text"
+            name="task"
+            onChange={handleChange}
+            value={inputValue}
+          />
+          <Button
+            size="medium"
+            color="primary"
+            variant="contained"
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={addTask}
+          >
+            Add
+          </Button>
+        </div>
+      </header>
+      <Container maxWidth="sm">
         <main className="App-main">
           <ul className="App-ul">
             {todoList.map((task) => {
@@ -169,14 +198,15 @@ function App() {
         <footer className="App-footer">
           <div
             style={{
-              display: "flex",
-              justifyContent: "left",
               marginTop: "100px",
+              padding: "5px",
             }}
           >
             <Button
               // sx={{ alignItem: "center" }}
               size="small"
+              fullWidth
+              variant="outlined"
               color="error"
               startIcon={<DeleteForeverIcon />}
               onClick={() => deleteTasksdone()}
@@ -184,18 +214,32 @@ function App() {
               Delete Tasks Done
             </Button>
           </div>
-          <div style={{ display: "flex", justifyContent: "left" }}>
+          <div
+            style={{
+              padding: "5px",
+            }}
+          >
             <Button
               // sx={{ alignItem: "center" }}
               size="small"
+              fullWidth
+              variant="contained"
               color="error"
               startIcon={<DeleteForeverIcon />}
               onClick={() => deleteAllTasks()}
             >
-              Delete All
+              Delete All Tasks
             </Button>
           </div>
-          <h5>Born3am - 2022</h5>
+          <h5>
+            <a
+              href="https://github.com/born3am"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Born3am - 2022
+            </a>
+          </h5>
         </footer>
       </Container>
     </div>
