@@ -1,13 +1,14 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import "./App.css";
 import { v4 as uuid } from "uuid";
-import { TodoItemType } from "./interfaces";
-import TodoItem from "./TodoItem";
-import { Button, Container, TextField } from "@mui/material";
+import { TodoItemType } from "./global/types";
+import TodoItem from "./components/TodoItem";
+import { Button, Container, Input } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Swal from "sweetalert2";
 import { warningAlert, successAlert } from "./alerts";
+import "animate.css";
 
 function App() {
   const [todoList, setTodoList] = useState<TodoItemType[]>(
@@ -29,7 +30,13 @@ function App() {
       const task = {
         id: uuid(),
         text: inputValue,
-        date: new Date().toLocaleString(),
+        date: new Date().toLocaleString(`en-US`, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+        }),
         done: false,
       };
       setTodoList([...todoList, task]);
@@ -49,6 +56,12 @@ function App() {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
+      showClass: {
+        popup: " animate__animated animate__zoomIn",
+      },
+      hideClass: {
+        popup: " animate__animated animate__zoomOut",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         setTodoList(todoList.filter((task) => task.id !== id));
@@ -67,54 +80,94 @@ function App() {
 
   //delete all Tasks
   const deleteAllTasks = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setTodoList([]);
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title: "Deleted!",
-          text: "All Tasks deleted",
-          showConfirmButton: false,
-          timer: 1000,
-          toast: true,
-        });
-      }
-    });
+    if (
+      todoList.map((task) => task.done).includes(true) ||
+      todoList.map((task) => task.done).includes(false)
+    ) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+        showClass: {
+          popup: " animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: " animate__animated animate__zoomOut",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setTodoList([]);
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Deleted!",
+            text: "All Tasks deleted",
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "Oops...",
+        text: "Nothing to delete here!",
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true,
+      });
+    }
   };
 
   //delete dones
   const deleteTasksdone = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setTodoList(todoList.filter((task) => !task.done));
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title: "Deleted!",
-          text: "Task(s) done deleted",
-          showConfirmButton: false,
-          timer: 1000,
-          toast: true,
-        });
-      }
-    });
+    if (todoList.map((task) => task.done).includes(true)) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+        showClass: {
+          popup: " animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: " animate__animated animate__zoomOut",
+        },
+      }).then((result) => {
+        console.log(todoList);
+        if (result.isConfirmed) {
+          setTodoList(todoList.filter((task) => !task.done));
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Deleted!",
+            text: "Task(s) done deleted",
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "top",
+        icon: "warning",
+        title: "Oops!",
+        text: "No tasks done yet!",
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true,
+      });
+    }
   };
 
   // update task
@@ -128,30 +181,72 @@ function App() {
 
   return (
     <div className="App">
-      <Container fixed>
-        <header className="App-header">
-          <h1>TODO APP</h1>
-          <div className="App-div-input">
-            <TextField
-              id="standard-basic"
-              label="Enter your task here!"
-              variant="standard"
-              type="text"
-              name="task"
-              onChange={handleChange}
-              value={inputValue}
-            />
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              startIcon={<AddCircleOutlineIcon />}
-              onClick={addTask}
-            >
-              Add Task
-            </Button>
-          </div>
-        </header>
+      <header className="App-header">
+        <h1 className="animate__animated animate__zoomInLeft">TO-DO APP</h1>
+        <div className="App-div-input">
+          <Input
+            autoComplete="on"
+            id="standard-basic"
+            placeholder="Your task here!"
+            type="text"
+            name="task"
+            onChange={handleChange}
+            value={inputValue}
+            onKeyPress={(ev) => {
+              if (ev.key === "Enter") {
+                addTask();
+              }
+            }}
+          />
+
+          <Button
+            size="medium"
+            color="primary"
+            variant="contained"
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={addTask}
+          >
+            Add
+          </Button>
+        </div>
+      </header>
+
+      <Container maxWidth="sm">
+        <div
+          style={{
+            marginTop: "10px",
+            padding: "5px",
+          }}
+        >
+          <Button
+            // sx={{ alignItem: "center" }}
+            size="small"
+            fullWidth
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteForeverIcon />}
+            onClick={() => deleteTasksdone()}
+          >
+            Delete Tasks Done
+          </Button>
+        </div>
+        <div
+          style={{
+            padding: "5px",
+          }}
+        >
+          <Button
+            // sx={{ alignItem: "center" }}
+            size="small"
+            fullWidth
+            variant="contained"
+            color="error"
+            startIcon={<DeleteForeverIcon />}
+            onClick={() => deleteAllTasks()}
+          >
+            Delete All Tasks
+          </Button>
+        </div>
         <main className="App-main">
           <ul className="App-ul">
             {todoList.map((task) => {
@@ -167,35 +262,15 @@ function App() {
           </ul>
         </main>
         <footer className="App-footer">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "left",
-              marginTop: "100px",
-            }}
-          >
-            <Button
-              // sx={{ alignItem: "center" }}
-              size="small"
-              color="error"
-              startIcon={<DeleteForeverIcon />}
-              onClick={() => deleteTasksdone()}
+          <h5>
+            <a
+              href="https://github.com/born3am"
+              rel="noreferrer"
+              target="_blank"
             >
-              Delete Tasks Done
-            </Button>
-          </div>
-          <div style={{ display: "flex", justifyContent: "left" }}>
-            <Button
-              // sx={{ alignItem: "center" }}
-              size="small"
-              color="error"
-              startIcon={<DeleteForeverIcon />}
-              onClick={() => deleteAllTasks()}
-            >
-              Delete All
-            </Button>
-          </div>
-          <h5>Born3am - 2022</h5>
+              Born3am - 2022
+            </a>
+          </h5>
         </footer>
       </Container>
     </div>
