@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Swal from "sweetalert2";
 import { warningAlert, successAlert } from "./alerts";
-import { padding } from "@mui/system";
+import "animate.css";
 
 function App() {
   const [todoList, setTodoList] = useState<TodoItemType[]>(
@@ -30,7 +30,13 @@ function App() {
       const task = {
         id: uuid(),
         text: inputValue,
-        date: new Date().toLocaleString(),
+        date: new Date().toLocaleString(`en-US`, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",        
+        }),
         done: false,
       };
       setTodoList([...todoList, task]);
@@ -158,7 +164,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>TO-DO APP</h1>
+        <h1 className="animate__animated animate__zoomInLeft">TO-DO APP</h1>
         <div className="App-div-input">
           <TextField
             id="standard-basic"

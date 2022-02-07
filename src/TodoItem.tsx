@@ -1,11 +1,11 @@
 import React from "react";
 import { TodoItemType } from "./interfaces";
 import "./TodoItem.css";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedTwoToneIcon from "@mui/icons-material/RadioButtonUncheckedTwoTone";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Button } from "@mui/material";
+import "animate.css";
 
 type Props = {
   task: TodoItemType;
@@ -19,9 +19,9 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
       <div>
         <Button onClick={() => statusTask(task.id)}>
           {task.done ? (
-            <CheckCircleOutlineIcon />
+            <CheckCircleOutlineIcon color="disabled" />
           ) : (
-            <RadioButtonUncheckedTwoToneIcon />
+            <RadioButtonUncheckedTwoToneIcon color="action" />
           )}
         </Button>
         <span className={task.done ? "Task-done" : "Task-undone"}>
@@ -29,10 +29,13 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
         </span>
       </div>
       <div>
-        <span className="TodoItem-date"> {task.date} </span>
+        <span className="TodoItem-date"> {`Added on: ${task.date}`} </span>
         <Button color="error" onClick={() => deleteTask(task.id)}>
-          {" "}
-          <DeleteForeverIcon />{" "}
+          {task.done ? (
+            <DeleteForeverIcon color="disabled" />
+          ) : (
+            <DeleteForeverIcon color="error" />
+          )}
         </Button>
       </div>
     </li>

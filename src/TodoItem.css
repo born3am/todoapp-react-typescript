@@ -5,10 +5,11 @@
   padding: 2px;
   width: 100%;
   border-radius: 10px;
-  background-color: #8ab8fc;
+  background-color: rgb(25, 118, 210, 0.01);
+  color: rgb(0, 0, 0, 0.4);
   margin: 5px auto;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-
+  text-decoration: line-through;
 }
 
 .TodoItem-li-undone {
@@ -21,15 +22,6 @@
   background-color: #f3f2ed;
   margin: 5px auto;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-
-}
-
-.Task-done {
-  text-decoration: line-through;
-
-}
-
-.Task-undone {
   font-style: italic;
 }
 
