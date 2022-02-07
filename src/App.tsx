@@ -3,7 +3,7 @@ import "./App.css";
 import { v4 as uuid } from "uuid";
 import { TodoItemType } from "./interfaces";
 import TodoItem from "./TodoItem";
-import { Button, Container, TextField } from "@mui/material";
+import { Button, Container, Input, TextField } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Swal from "sweetalert2";
@@ -35,7 +35,7 @@ function App() {
           month: "short",
           day: "numeric",
           hour: "numeric",
-          minute: "numeric",        
+          minute: "numeric",
         }),
         done: false,
       };
@@ -56,6 +56,12 @@ function App() {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
+      showClass: {
+        popup: " animate__animated animate__zoomIn",
+      },
+      hideClass: {
+        popup: " animate__animated animate__zoomOut",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         setTodoList(todoList.filter((task) => task.id !== id));
@@ -86,6 +92,12 @@ function App() {
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
         confirmButtonText: "Yes, delete it!",
+        showClass: {
+          popup: " animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: " animate__animated animate__zoomOut",
+        },
       }).then((result) => {
         if (result.isConfirmed) {
           setTodoList([]);
@@ -124,6 +136,12 @@ function App() {
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
         confirmButtonText: "Yes, delete it!",
+        showClass: {
+          popup: " animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: " animate__animated animate__zoomOut",
+        },
       }).then((result) => {
         console.log(todoList);
         if (result.isConfirmed) {
@@ -166,15 +184,21 @@ function App() {
       <header className="App-header">
         <h1 className="animate__animated animate__zoomInLeft">TO-DO APP</h1>
         <div className="App-div-input">
-          <TextField
+          <Input
+            autoComplete="on"
             id="standard-basic"
-            label="Enter your task here!"
-            variant="standard"
+            placeholder="Your task here!"
             type="text"
             name="task"
             onChange={handleChange}
             value={inputValue}
+            onKeyPress={(ev) => {
+              if (ev.key === "Enter") {
+                addTask();
+              }
+            }}
           />
+
           <Button
             size="medium"
             color="primary"
@@ -186,7 +210,43 @@ function App() {
           </Button>
         </div>
       </header>
+
       <Container maxWidth="sm">
+        <div
+          style={{
+            marginTop: "10px",
+            padding: "5px",
+          }}
+        >
+          <Button
+            // sx={{ alignItem: "center" }}
+            size="small"
+            fullWidth
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteForeverIcon />}
+            onClick={() => deleteTasksdone()}
+          >
+            Delete Tasks Done
+          </Button>
+        </div>
+        <div
+          style={{
+            padding: "5px",
+          }}
+        >
+          <Button
+            // sx={{ alignItem: "center" }}
+            size="small"
+            fullWidth
+            variant="contained"
+            color="error"
+            startIcon={<DeleteForeverIcon />}
+            onClick={() => deleteAllTasks()}
+          >
+            Delete All Tasks
+          </Button>
+        </div>
         <main className="App-main">
           <ul className="App-ul">
             {todoList.map((task) => {
@@ -202,41 +262,6 @@ function App() {
           </ul>
         </main>
         <footer className="App-footer">
-          <div
-            style={{
-              marginTop: "100px",
-              padding: "5px",
-            }}
-          >
-            <Button
-              // sx={{ alignItem: "center" }}
-              size="small"
-              fullWidth
-              variant="outlined"
-              color="error"
-              startIcon={<DeleteForeverIcon />}
-              onClick={() => deleteTasksdone()}
-            >
-              Delete Tasks Done
-            </Button>
-          </div>
-          <div
-            style={{
-              padding: "5px",
-            }}
-          >
-            <Button
-              // sx={{ alignItem: "center" }}
-              size="small"
-              fullWidth
-              variant="contained"
-              color="error"
-              startIcon={<DeleteForeverIcon />}
-              onClick={() => deleteAllTasks()}
-            >
-              Delete All Tasks
-            </Button>
-          </div>
           <h5>
             <a
               href="https://github.com/born3am"

@@ -5,6 +5,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedTwoToneIcon from "@mui/icons-material/RadioButtonUncheckedTwoTone";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Button } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import "animate.css";
 
 type Props = {
@@ -13,7 +14,11 @@ type Props = {
   statusTask: (id: string) => void;
 };
 
+
+
 export default function TodoItem({ task, deleteTask, statusTask }: Props) {
+    const matches = useMediaQuery("(min-width:600px)");
+
   return (
     <li className={task.done ? "TodoItem-li-done" : "TodoItem-li-undone "}>
       <div>
@@ -24,12 +29,15 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
             <RadioButtonUncheckedTwoToneIcon color="action" />
           )}
         </Button>
+
         <span className={task.done ? "Task-done" : "Task-undone"}>
           {task.text}
         </span>
       </div>
-      <div>
-        <span className="TodoItem-date"> {`Added on: ${task.date}`} </span>
+      {matches && (
+      <div>        
+          <span className="TodoItem-date">  {`Added on: ${task.date}`} </span>
+
         <Button color="error" onClick={() => deleteTask(task.id)}>
           {task.done ? (
             <DeleteForeverIcon color="disabled" />
@@ -37,7 +45,8 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
             <DeleteForeverIcon color="error" />
           )}
         </Button>
-      </div>
+      </div>)
+      }
     </li>
   );
 }
