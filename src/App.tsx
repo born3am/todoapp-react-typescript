@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import "./App.css";
 import { v4 as uuid } from "uuid";
-import { TodoItemType } from "./interfaces";
-import TodoItem from "./TodoItem";
-import { Button, Container, Input, TextField } from "@mui/material";
+import { TodoItemType } from "./global/types";
+import TodoItem from "./components/TodoItem";
+import { Button, Container, Input } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Swal from "sweetalert2";
