@@ -15,3 +15,5 @@ To-do App storing data in the LocalStorage
 - LocalStorage
 
 ![](./README.md-files/todoapp.png)
+
+![](./README.md-files/todoapp-mobile.png)
