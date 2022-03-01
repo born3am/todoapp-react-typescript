@@ -1,6 +1,6 @@
 # TO-DO APP
 
-To-do App storing data in the LocalStorage(working in progress)
+To-do App storing data in the LocalStorage
 
 ## Built with
 
@@ -12,5 +12,6 @@ To-do App storing data in the LocalStorage(working in progress)
 - uuid
 - animate.css
 - moment
+- LocalStorage
 
 ![](./README.md-files/todoapp.png)
