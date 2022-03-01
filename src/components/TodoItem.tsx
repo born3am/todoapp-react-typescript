@@ -1,11 +1,17 @@
+//Native Imports
 import React from "react";
-import { TodoItemType } from "../global/types";
-import "./TodoItem.css";
+
+//External Imports
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedTwoToneIcon from "@mui/icons-material/RadioButtonUncheckedTwoTone";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import moment from "moment";
+
+//Internal Imports
+import { TodoItemType } from "../global/types";
+import "./TodoItem.css";
 import "animate.css";
 
 type Props = {
@@ -34,7 +40,10 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
       </div>
       {matches && (
         <div>
-          <span className="TodoItem-date"> {`Added on: ${task.date}`} </span>
+          <span className="TodoItem-date">
+            {" "}
+            {`Added ${moment(task.date).fromNow()}`}{" "}
+          </span>
 
           <Button color="error" onClick={() => deleteTask(task.id)}>
             {task.done ? (
