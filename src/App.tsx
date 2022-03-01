@@ -3,7 +3,7 @@ import "./App.css";
 import { v4 as uuid } from "uuid";
 import { TodoItemType } from "./global/types";
 import TodoItem from "./components/TodoItem";
-import { Button, Container, Input } from "@mui/material";
+import { Button, Container, FormControl, Input } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Swal from "sweetalert2";
@@ -15,6 +15,10 @@ function App() {
     JSON.parse(localStorage.getItem("todoList") || "[]")
   );
   const [inputValue, setInputValue] = useState<string>("");
+
+  const todosLength = todoList.length;
+  const hasTodos = todosLength > 0;
+  const remainingTodos = todoList.filter((todo) => !todo.done).length || 0;
 
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todoList));
@@ -193,9 +197,7 @@ function App() {
             onChange={handleChange}
             value={inputValue}
             onKeyPress={(ev) => {
-              if (ev.key === "Enter") {
-                addTask();
-              }
+              ev.key === "Enter" && addTask();
             }}
           />
 
@@ -219,7 +221,6 @@ function App() {
           }}
         >
           <Button
-            // sx={{ alignItem: "center" }}
             size="small"
             fullWidth
             variant="outlined"
@@ -236,7 +237,6 @@ function App() {
           }}
         >
           <Button
-            // sx={{ alignItem: "center" }}
             size="small"
             fullWidth
             variant="contained"
@@ -259,6 +259,15 @@ function App() {
                 />
               );
             })}
+            {hasTodos && (
+              <p
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "10px",
+                }}
+              >{`${remainingTodos} of ${todosLength} task(s) remaining`}</p>
+            )}
           </ul>
         </main>
         <footer className="App-footer">
