@@ -197,9 +197,7 @@ function App() {
             onChange={handleChange}
             value={inputValue}
             onKeyPress={(ev) => {
-              if (ev.key === "Enter") {
-                addTask();
-              }
+              ev.key === "Enter" && addTask();
             }}
           />
 
@@ -223,7 +221,6 @@ function App() {
           }}
         >
           <Button
-            // sx={{ alignItem: "center" }}
             size="small"
             fullWidth
             variant="outlined"
@@ -240,7 +237,6 @@ function App() {
           }}
         >
           <Button
-            // sx={{ alignItem: "center" }}
             size="small"
             fullWidth
             variant="contained"
