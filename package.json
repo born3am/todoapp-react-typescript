@@ -2,6 +2,7 @@
   "name": "react-typescript-todoapp",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "prettier": "@born3am/prettier-config",
   "scripts": {
     "start": "vite",
