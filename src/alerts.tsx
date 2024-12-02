@@ -1,23 +1,23 @@
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
-const warningAlert = () => {
-  Swal.fire({
-    position: "top",
-    icon: "warning",
-    title: "Oops!",
-    text: "You must enter a task",
+const warningAlert = async () => {
+  await Swal.fire({
+    position: 'top',
+    icon: 'warning',
+    title: 'Oops!',
+    text: 'You must enter a task',
     showConfirmButton: false,
     timer: 1000,
     toast: true,
   });
 };
 
-const successAlert = () => {
-  Swal.fire({
-    position: "top",
-    icon: "success",
-    title: "Added!",
-    text: "Task added",
+const successAlert = async () => {
+  await Swal.fire({
+    position: 'top',
+    icon: 'success',
+    title: 'Added!',
+    text: 'Task added',
     showConfirmButton: false,
     timer: 1000,
     toast: true,
@@ -42,5 +42,4 @@ const successAlert = () => {
 //   });
 // };
 
-
-export { warningAlert, successAlert };
+export { successAlert, warningAlert };
