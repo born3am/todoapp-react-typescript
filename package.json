@@ -8,7 +8,7 @@
     "build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-        "lint": "eslint -c eslint.config.js --cache .",
+    "lint": "eslint -c eslint.config.js --cache .",
     "lint:fix": "npm run lint -- --no-cache --fix",
     "prettier": "prettier --check --cache --no-error-on-unmatched-pattern '**/*.md' '**/*.yml' '**/*.json' '**/*.html' '**/*.css' '**/*.scss' '**/*.sass' '**/*.less'",
     "prettier:fix": "npm run prettier -- --no-cache --write",
