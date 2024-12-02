@@ -29,7 +29,7 @@ function App() {
   };
 
   //add Task
-  const addTask = () => {
+  const addTask = async () => {
     if (inputValue.trim() !== '') {
       const task = {
         id: uuid(),
@@ -45,14 +45,14 @@ function App() {
       };
       setTodoList([...todoList, task]);
       setInputValue('');
-      successAlert();
+      await successAlert();
     } else {
-      warningAlert();
+      await warningAlert();
     }
   };
   //delete todo task
-  const deleteTask = (id: string) => {
-    Swal.fire({
+  const deleteTask = async (id: string) => {
+    const result = await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
@@ -66,26 +66,26 @@ function App() {
       hideClass: {
         popup: ' animate__animated animate__zoomOut',
       },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setTodoList(todoList.filter((task) => task.id !== id));
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'Deleted!',
-          text: 'Task deleted',
-          showConfirmButton: false,
-          timer: 1000,
-          toast: true,
-        });
-      }
     });
+
+    if (result.isConfirmed) {
+      setTodoList(todoList.filter((task) => task.id !== id));
+      await Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'Task deleted',
+        showConfirmButton: false,
+        timer: 1000,
+        toast: true,
+      });
+    }
   };
 
   //delete all Tasks
-  const deleteAllTasks = () => {
+  const deleteAllTasks = async () => {
     if (todoList.map((task) => task.done).includes(true) || todoList.map((task) => task.done).includes(false)) {
-      Swal.fire({
+      const result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
@@ -99,22 +99,22 @@ function App() {
         hideClass: {
           popup: ' animate__animated animate__zoomOut',
         },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setTodoList([]);
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'Deleted!',
-            text: 'All Tasks deleted',
-            showConfirmButton: false,
-            timer: 1000,
-            toast: true,
-          });
-        }
       });
+
+      if (result.isConfirmed) {
+        setTodoList([]);
+        await Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'All Tasks deleted',
+          showConfirmButton: false,
+          timer: 1000,
+          toast: true,
+        });
+      }
     } else {
-      Swal.fire({
+      await Swal.fire({
         position: 'top',
         icon: 'error',
         title: 'Oops...',
@@ -127,9 +127,9 @@ function App() {
   };
 
   //delete dones
-  const deleteTasksdone = () => {
+  const deleteTasksdone = async () => {
     if (todoList.map((task) => task.done).includes(true)) {
-      Swal.fire({
+      const result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
@@ -143,23 +143,22 @@ function App() {
         hideClass: {
           popup: ' animate__animated animate__zoomOut',
         },
-      }).then((result) => {
-        console.log(todoList);
-        if (result.isConfirmed) {
-          setTodoList(todoList.filter((task) => !task.done));
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'Deleted!',
-            text: 'Task(s) done deleted',
-            showConfirmButton: false,
-            timer: 1000,
-            toast: true,
-          });
-        }
       });
+
+      if (result.isConfirmed) {
+        setTodoList(todoList.filter((task) => !task.done));
+        await Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'Task(s) done deleted',
+          showConfirmButton: false,
+          timer: 1000,
+          toast: true,
+        });
+      }
     } else {
-      Swal.fire({
+      await Swal.fire({
         position: 'top',
         icon: 'warning',
         title: 'Oops!',
@@ -189,8 +188,10 @@ function App() {
             name='task'
             onChange={handleChange}
             value={inputValue}
-            onKeyPress={(ev) => {
-              ev.key === 'Enter' && addTask();
+            onKeyDown={async (ev) => {
+              if (ev.key === 'Enter') {
+                await addTask();
+              }
             }}
           />
 
@@ -219,7 +220,7 @@ function App() {
             variant='outlined'
             color='error'
             startIcon={<DeleteForeverIcon />}
-            onClick={() => deleteTasksdone()}
+            onClick={async () => deleteTasksdone()}
           >
             Delete Tasks Done
           </Button>
@@ -235,7 +236,7 @@ function App() {
             variant='contained'
             color='error'
             startIcon={<DeleteForeverIcon />}
-            onClick={() => deleteAllTasks()}
+            onClick={async () => deleteAllTasks()}
           >
             Delete All Tasks
           </Button>

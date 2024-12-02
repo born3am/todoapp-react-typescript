@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
-const warningAlert = () => {
-  Swal.fire({
+const warningAlert = async () => {
+  await Swal.fire({
     position: 'top',
     icon: 'warning',
     title: 'Oops!',
@@ -12,8 +12,8 @@ const warningAlert = () => {
   });
 };
 
-const successAlert = () => {
-  Swal.fire({
+const successAlert = async () => {
+  await Swal.fire({
     position: 'top',
     icon: 'success',
     title: 'Added!',
