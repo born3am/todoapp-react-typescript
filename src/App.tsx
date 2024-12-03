@@ -24,8 +24,8 @@ function App() {
     localStorage.setItem('todoList', JSON.stringify(todoList));
   }, [todoList]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
   //add Task
