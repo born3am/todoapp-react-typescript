@@ -1,33 +1,26 @@
-import { useState, ChangeEvent, useEffect } from 'react';
 import './App.css';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Button, Container, Input } from '@mui/material';
-import { warningAlert, successAlert } from './alerts';
+
 import TodoItem from './components/TodoItem';
-import { TodoItemType } from './global/types';
+import { useTasks } from './hooks/useTasks';
 import 'animate.css';
-import { addTask, deleteTask, deleteAllTasks, deleteTasksdone } from './utils/taskUtils';
+import { warningAlert, successAlert } from './utils/alertUtils';
+import { addTask, deleteTask, deleteAllTasks, deleteTasksDone } from './utils/taskUtils';
 
-function App() {
-  const [todoList, setTodoList] = useState<TodoItemType[]>(JSON.parse(localStorage.getItem('todoList') || '[]'));
-  const [inputValue, setInputValue] = useState<string>('');
-
-  const todosLength = todoList.length;
-  const hasTodos = todosLength > 0;
-  const remainingTodos = todoList.filter((todo) => !todo.done).length || 0;
-
-  useEffect(() => {
-    localStorage.setItem('todoList', JSON.stringify(todoList));
-  }, [todoList]);
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const statusTask = (id: string) => {
-    setTodoList(todoList.map((task) => (task.id === id ? { ...task, done: !task.done } : task)));
-  };
+const App: React.FC = () => {
+  const {
+    todoList,
+    inputValue,
+    todosLength,
+    hasTodos,
+    remainingTodos,
+    handleChange,
+    statusTask,
+    setTodoList,
+    setInputValue,
+  } = useTasks();
 
   return (
     <div className='App'>
@@ -54,7 +47,7 @@ function App() {
             color='primary'
             variant='contained'
             startIcon={<AddCircleOutlineIcon />}
-            onClick={() => addTask(inputValue, todoList, setTodoList, setInputValue, successAlert, warningAlert)}
+            onClick={async () => addTask(inputValue, todoList, setTodoList, setInputValue, successAlert, warningAlert)}
           >
             Add
           </Button>
@@ -69,7 +62,7 @@ function App() {
             variant='outlined'
             color='error'
             startIcon={<DeleteForeverIcon />}
-            onClick={() => deleteTasksdone(todoList, setTodoList)}
+            onClick={async () => deleteTasksDone(todoList, setTodoList)}
           >
             Delete Tasks Done
           </Button>
@@ -81,7 +74,7 @@ function App() {
             variant='contained'
             color='error'
             startIcon={<DeleteForeverIcon />}
-            onClick={() => deleteAllTasks(todoList, setTodoList)}
+            onClick={async () => deleteAllTasks(todoList, setTodoList)}
           >
             Delete All Tasks
           </Button>
@@ -89,7 +82,12 @@ function App() {
         <main className='App-main'>
           <ul className='App-ul'>
             {todoList.map((task) => (
-              <TodoItem key={task.id} task={task} deleteTask={(id) => deleteTask(id, todoList, setTodoList)} statusTask={statusTask} />
+              <TodoItem
+                key={task.id}
+                task={task}
+                deleteTask={async (id) => deleteTask(id, todoList, setTodoList)}
+                statusTask={statusTask}
+              />
             ))}
             {hasTodos && (
               <p style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
@@ -108,6 +106,6 @@ function App() {
       </Container>
     </div>
   );
-}
+};
 
 export default App;

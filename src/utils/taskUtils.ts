@@ -1,6 +1,7 @@
+import { v4 as uuid } from 'uuid';
+
 import { showAlert } from './alertUtils';
 import { TodoItemType } from '../global/types';
-import { v4 as uuid } from 'uuid';
 
 export const addTask = async (
   inputValue: string,
@@ -8,7 +9,7 @@ export const addTask = async (
   setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>,
   setInputValue: React.Dispatch<React.SetStateAction<string>>,
   successAlert: () => Promise<void>,
-  warningAlert: () => Promise<void>
+  warningAlert: () => Promise<void>,
 ) => {
   if (inputValue.trim() !== '') {
     const task: TodoItemType = {
@@ -34,7 +35,7 @@ export const addTask = async (
 export const deleteTask = async (
   id: string,
   todoList: TodoItemType[],
-  setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>
+  setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>,
 ) => {
   const result = await showAlert({
     title: 'Are you sure?',
@@ -68,7 +69,7 @@ export const deleteTask = async (
 
 export const deleteAllTasks = async (
   todoList: TodoItemType[],
-  setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>
+  setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>,
 ) => {
   if (todoList.length > 0) {
     const result = await showAlert({
@@ -112,9 +113,9 @@ export const deleteAllTasks = async (
   }
 };
 
-export const deleteTasksdone = async (
+export const deleteTasksDone = async (
   todoList: TodoItemType[],
-  setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>
+  setTodoList: React.Dispatch<React.SetStateAction<TodoItemType[]>>,
 ) => {
   if (todoList.some((task) => task.done)) {
     const result = await showAlert({
