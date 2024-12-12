@@ -5,7 +5,7 @@
   "type": "module",
   "prettier": "@born3am/prettier-config",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint -c eslint.config.js --cache .",
     "lint:fix": "npm run lint -- --no-cache --fix",
