@@ -1,7 +1,14 @@
 {
   "name": "react-typescript-todoapp",
   "version": "1.0.0",
+  "description": "A simple todo app built with React and TypeScript",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-typescript-todoapp.git"
+  },
+  "author": "born3am",
+  "homepage": "https://todoapp-react-typescript.vercel.app",
   "type": "module",
   "prettier": "@born3am/prettier-config",
   "scripts": {
