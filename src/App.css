@@ -70,9 +70,3 @@
 .App-footer a:hover {
   color: #1976d2;
 }
-
-/* Override SweetAlert2 icon styles */
-.swal2-icon.swal2-warning .swal2-icon-content {
-  font-size: 4rem; /* Adjust the font size as needed */
-  font-weight: 700; /* Adjust the font weight as needed */
-}

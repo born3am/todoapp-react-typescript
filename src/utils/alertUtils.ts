@@ -1,4 +1,5 @@
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import './alertUtils.css';
 
 const showAlert = async (options: SweetAlertOptions) => {
   try {
@@ -17,6 +18,9 @@ const warningAlert = async () => {
     showConfirmButton: false,
     timer: 1000,
     toast: true,
+    customClass: {
+      icon: 'custom-swal-icon',
+    },
   });
 };
 
