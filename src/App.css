@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Sniglet:wght@400;800&display=swap');
+
+/* General Styles */
 .App {
 }
+
+/* Header Styles */
 .App-header {
   height: 20vh;
   display: flex;
@@ -13,6 +17,18 @@
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
+.App-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-header-content img {
+  margin-right: 40px;
+  width: 92px;
+}
+
+/* Input Styles */
 .App-div-input {
   display: flex;
   align-items: center;
@@ -20,6 +36,8 @@
   min-width: 50%;
   max-width: 50%;
 }
+
+/* List Styles */
 .App-ul {
   list-style-type: none;
   margin: 30px auto;
@@ -28,11 +46,13 @@
   width: 100%;
 }
 
+/* Main Content Styles */
 .App-main {
   min-height: 55vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Footer Styles */
 .App-footer {
 }
 
