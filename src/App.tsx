@@ -25,7 +25,14 @@ const App: React.FC = () => {
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1 className='animate__animated animate__zoomInLeft'>TO-DO APP</h1>
+        <div className='App-header-content'>
+          <img
+            className='animate__animated  animate__delay-2s animate__pulse animate__infinite'
+            src='/todo-logo-192x192.png'
+            alt='To-Do App Logo'
+          />
+          <h1 className='animate__animated animate__zoomInLeft'>TO-DO APP</h1>
+        </div>
         <div className='App-div-input'>
           <Input
             autoComplete='on'
