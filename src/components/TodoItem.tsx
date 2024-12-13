@@ -15,7 +15,7 @@ type Props = {
   task: TodoItemType;
 };
 
-export default function TodoItem({ task, deleteTask, statusTask }: Props) {
+const TodoItem = ({ task, deleteTask, statusTask }: Props) => {
   const matches = useMediaQuery('(min-width:600px)');
   const formattedDate = moment(task.date).fromNow();
 
@@ -37,4 +37,6 @@ export default function TodoItem({ task, deleteTask, statusTask }: Props) {
       )}
     </li>
   );
-}
+};
+
+export default TodoItem;
