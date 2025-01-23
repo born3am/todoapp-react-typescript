@@ -15,10 +15,12 @@ updates:
       prefix: 'chore' # PR title prefix
       include: 'scope'
     groups:
-      minor-updates:
-        applies-to: version-updates
-        update-types:
-          - 'patch' # Group all patch updates together
+      minor-and-patch-updates:
+        patterns:
+          - '*' # Apply to all dependencies
+        update-types: # Update types to consider
+          - 'patch'
+          - 'minor'
     versioning-strategy: increase-if-necessary
     ignore:
       - dependency-name: '*'
