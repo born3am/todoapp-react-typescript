@@ -45,7 +45,7 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
-    "@born3am/eslint-config": "^0.3.3",
+    "@born3am/eslint-config": "^1.1.1",
     "@born3am/prettier-config": "^1.0.1",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.8",
