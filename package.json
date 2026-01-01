@@ -47,7 +47,7 @@
   "devDependencies": {
     "@born3am/eslint-config": "^1.1.1",
     "@born3am/prettier-config": "^1.0.1",
-    "@types/node": "^24.0.8",
+    "@types/node": "^25.0.3",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@types/sweetalert": "^2.0.4",
